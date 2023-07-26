@@ -2,6 +2,7 @@ import express from "express";
 import { engine } from 'express-handlebars';
 import bodyParser from "body-parser";
 import radioBillTotalSettings from "./settings-bill.js";
+import moment from "moment";
 
 let app = express();
 const settingsBill = radioBillTotalSettings()
@@ -28,7 +29,6 @@ app.get('/', function (req, res) {
             criticalLevel:settingsBill.getDangerLevel(),
             totals:settingsBill.getTotals(),
             Colors:settingsBill.getColor()
-  
     });
 })
 app.post("/settings", function (req, res) {
@@ -56,12 +56,20 @@ app.post("/reset", function (req, res) {
 
 
 app.get("/actions", function (req, res) {
-    res.render('actions',{actions:settingsBill.actions()})
+    const actions = settingsBill.actions().map(action => ({
+        ...action,
+        timestamp: moment(action.timestamp).fromNow()
+      }));
+      res.render('actions', { actions });
 });
 
 app.get("/actions/:type", function (req, res) {
     const actionType = req.params.type;
-    res.render('actions',{actions:settingsBill.filterActions(actionType)})
+    const actions = settingsBill.filterActions(actionType).map(action => ({
+        ...action,
+        timestamp: moment(action.timestamp).fromNow()
+      }));
+      res.render('actions', { actions });
 });
 
 let PORT = process.env.PORT || 3007;
