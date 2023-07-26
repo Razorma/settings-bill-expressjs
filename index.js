@@ -22,8 +22,8 @@ app.use(bodyParser.json())
 app.get('/', function (req, res) {
     res.render('home',{
         
-            smsCost:settingsBill.getCallCost(),
-            callCost:settingsBill.getSmsCost(),
+            callCost:settingsBill.getCallCost(),
+            smsCost:settingsBill.getSmsCost(),
             warningLevel:settingsBill.getWarningLevel(),
             criticalLevel:settingsBill.getDangerLevel(),
             totals:settingsBill.getTotals(),
@@ -42,6 +42,15 @@ app.post("/settings", function (req, res) {
 
 app.post("/action", function (req, res) {
     settingsBill.calculateBill(req.body.actionType)
+    res.redirect("/")
+});
+app.post("/reset", function (req, res) {
+    settingsBill.setCallCost("")
+    settingsBill.setSmsCost("")
+    settingsBill.setWarningLevel("")
+    settingsBill.setDangerLevel("")
+    settingsBill.resetSettings()
+    settingsBill.resetTotals()
     res.redirect("/")
 });
 

@@ -27,6 +27,7 @@ describe('radioBillTotalSettings', function() {
     it('should be able to use the call cost ', function() {
       const results = radioBillTotalSettings();
       results.setCallCost(2.00);
+      results.setSmsCost(1.50);
       results.calculateBill('call');
       results.calculateBill('call');
       results.calculateBill('call');
@@ -38,6 +39,7 @@ describe('radioBillTotalSettings', function() {
     it('should be able to use the sms cost ', function() {
       const results = radioBillTotalSettings();
       results.setSmsCost(1.50);
+      results.setCallCost(1.50);
       results.calculateBill('sms');
       results.calculateBill('sms');
       results.calculateBill('sms');

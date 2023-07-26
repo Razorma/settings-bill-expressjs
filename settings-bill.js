@@ -39,6 +39,10 @@ export default function radioBillTotalSettings(){
       if (getColor() === "danger") {
         return;
       }
+      if (callsTotalSetting === ""|| smsTotalSetting ==="") {
+        return;
+      }
+
       if (billItemType === "call") {
         callCost += callsTotalSetting
         cost = callsTotalSetting
@@ -46,11 +50,14 @@ export default function radioBillTotalSettings(){
         smsCost += smsTotalSetting;
         cost = smsTotalSetting
       }
-      actionList.push({
-        type:billItemType,
-        cost:cost.toFixed(2),
-        timestamp:new Date()
-      })
+
+        actionList.push({
+          type:billItemType,
+          cost:parseFloat(cost).toFixed(2),
+          timestamp:new Date()
+        })
+
+
     }
     function actions() {
       return actionList
@@ -65,9 +72,9 @@ export default function radioBillTotalSettings(){
   
     function getTotals() {
       return {
-        calls: callCost.toFixed(2),
-        sms: smsCost.toFixed(2),
-        total: (callCost + smsCost).toFixed(2),
+        calls: parseFloat(callCost).toFixed(2),
+        sms: parseFloat(smsCost).toFixed(2),
+        total: (parseFloat(callCost) + parseFloat(smsCost)).toFixed(2),
       };
     }
     function getSettings() {

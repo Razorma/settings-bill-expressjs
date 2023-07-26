@@ -75,8 +75,12 @@
                     <input class="u-full-width criticalLevelSetting" step=".01" name="criticalLevel" type="number" placeholder="eg. 65.00" value="{{criticalLevel}}">
                     <button class="button-primary updateSettings" type="submit" name="button">Update settings</button>
                 </form>
+                
 
             </div>
+            <form action="/reset" method="POST">
+                <button class="button-primary updateSettings center" type="submit" name="button">reset All</button>
+                </form>
           </div>
         </div>
       </div>
